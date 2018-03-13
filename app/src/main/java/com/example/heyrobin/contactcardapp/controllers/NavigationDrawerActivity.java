@@ -17,6 +17,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.heyrobin.contactcardapp.API.RandomUserTask;
+import com.example.heyrobin.contactcardapp.Interfaces.OnRandomUserAvailable;
 import com.example.heyrobin.contactcardapp.utilities.PersonAdapter;
 import com.example.heyrobin.contactcardapp.R;
 import com.example.heyrobin.contactcardapp.domain.Person;
@@ -29,12 +31,14 @@ import java.util.ArrayList;
 
 public class NavigationDrawerActivity
         extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, OnRandomUserAvailable{
 
     //Creating variables for the RecyclerView
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private ArrayList<Person> mPersonsList;
+    private String TAG = "NavigationLayout";
 
 
     @Override
@@ -71,17 +75,11 @@ public class NavigationDrawerActivity
 
         //CUSTOM CODE
 
+        mPersonsList = new ArrayList<>();
 
-        //Generating some persons
-        ArrayList<Person> persons = new ArrayList<>();
-        for(int i = 0; i < 10; i++) {
-            persons.add(new Person("Robin Schellius", 49, "r.schellius@avans.nl"));
-            persons.add(new Person("Henk Jansen", 49, "h.jansen@avans.nl"));
-            persons.add(new Person("Kees Jansen", 49, "k.jansen@avans.nl"));
-            persons.add(new Person("Piet Jansen", 49, "p.jansen@avans.nl"));
-            persons.add(new Person("Marieke Jansen", 49, "m.jansen@avans.nl"));
-        }
-
+        String[] params = { "https://randomuser.me/api?results=50" };
+        RandomUserTask randomUserTask = new RandomUserTask(this);
+        randomUserTask.execute(params);
 
 
         //Creating the recycler v
@@ -93,17 +91,11 @@ public class NavigationDrawerActivity
 
         // use a linear layout manager. "this" defines that the lineair layout needs to be used
         // in this class, this activity. This is the context in which the layout needs to run
-//        LinearLayoutManager llm = new LinearLayoutManager(this);
-//        llm.setOrientation(LinearLayoutManager.VERTICAL);
-
-
         mLayoutManager = new LinearLayoutManager(this);
-
-
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // defining what adapter to use in the Recycler View
-        mAdapter = new PersonAdapter(persons);
+        mAdapter = new PersonAdapter(mPersonsList, this);
         mRecyclerView.setAdapter(mAdapter);
 
     }
@@ -168,5 +160,13 @@ public class NavigationDrawerActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onRandomUserAvailable(Person person) {
+        Log.d("", "onRandomUserAvailable: " + person.fullName);
+
+        mPersonsList.add(person);
+        mAdapter.notifyDataSetChanged();
     }
 }

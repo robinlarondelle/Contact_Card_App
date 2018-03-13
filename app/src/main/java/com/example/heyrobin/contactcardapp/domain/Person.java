@@ -1,24 +1,51 @@
 package com.example.heyrobin.contactcardapp.domain;
 
+
+import java.io.Serializable;
+
 /**
  * Created by HeyRobin on 7-3-2018.
  */
 
-public class Person {
+public class Person implements Serializable {
 
-    public String name;
-    public int age;
-    public String emailadress;
+    //Variables
+    public String firstName;
+    public String lastName;
+    public String fullName;
+    public String email;
+    public String imageUrl;
+    public String streetName;
+    public String city;
+    public String country;
+    public String phoneNumber;
 
-    public Person(String name, int age, String emailadress) {
-        this.name = name;
-        this.age = age;
-        this.emailadress = emailadress;
+    public Person(String firstName,
+                  String lastName,
+                  String email,
+                  String imageUrl,
+                  String streetName,
+                  String city,
+                  String country,
+                  String phoneNumber) {
+
+
+        this.firstName      = capitalize(firstName);
+        this.lastName       = capitalize(lastName);
+        this.fullName       = this.firstName + " " + this.lastName;
+        this.email          = email;
+        this.imageUrl       = imageUrl;
+        this.streetName     = capitalize(streetName);
+        this.city           = capitalize(city);
+        this.country        = capitalize(country);
+        this.phoneNumber    = phoneNumber;
     }
 
-    @Override
-    public String toString() {
-        return name;
+
+    //create capitalized words
+    private String capitalize(final String line) {
+        return Character.toUpperCase(line.charAt(0)) + line.substring(1);
     }
+
 
 }

@@ -84,6 +84,20 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
+    <string name="person_details_name">person_name</string>
+    <string name="person_details_email">person_email</string>
+    <string name="name">Name</string>
+    <string name="person_name">person_name</string>
+    <string name="email">email</string>
+    <string name="person_email">person_email</string>
+    <string name="street">Address</string>
+    <string name="person_address">person_address</string>
+    <string name="city">City</string>
+    <string name="person_city">person_city</string>
+    <string name="person_country">person_country</string>
+    <string name="phone">Phone</string>
+    <string name="person_phone">person_phone</string>
+    <string name="country">Country</string>
 
 
 </resources>

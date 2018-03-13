@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Contact Card App</string>
+    <string name="name">Naam</string>
+    <string name="email">Email</string>
+    <string name="street">Adress</string>
+    <string name="city">Stad</string>
+    <string name="phone">Tel.</string>
+    <string name="country">Land</string>
+</resources>
